@@ -19,12 +19,12 @@ CREATE TABLE IF NOT EXISTS pesquisas (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Inserir dados de exemplo (opcional)
-INSERT INTO pesquisas (cpf, endereco, bairro, cidade, estado, moradores, rede_esgoto, agua_tratada) VALUES
-('12345678901', 'Rua das Flores, 123', 'Centro', 'São Paulo', 'SP', 4, TRUE, TRUE),
-('98765432109', 'Av. Brasil, 456', 'Jardim América', 'Rio de Janeiro', 'RJ', 3, TRUE, TRUE),
-('11122233344', 'Rua da Paz, 789', 'Boa Vista', 'Recife', 'PE', 5, FALSE, TRUE),
-('55566677788', 'Travessa do Sol, 321', 'Aldeota', 'Fortaleza', 'CE', 2, FALSE, FALSE),
-('99988877766', 'Rua Amazonas, 654', 'Adrianópolis', 'Manaus', 'AM', 6, TRUE, FALSE);
+INSERT INTO pesquisas (id, cpf, endereco, bairro, cidade, estado, moradores, rede_esgoto, agua_tratada) VALUES
+('a0673e68-fbfe-4ce1-88c3-7dd805f9bff7','12345678901', 'Rua das Flores, 123', 'Centro', 'São Paulo', 'SP', 4, TRUE, TRUE),
+('9d6ffc12-b9bf-474b-8c5c-02caaa74dde6','98765432109', 'Av. Brasil, 456', 'Jardim América', 'Rio de Janeiro', 'RJ', 3, TRUE, TRUE),
+('ca90e15b-5d7f-4603-a4e4-e57800743b3e','11122233344', 'Rua da Paz, 789', 'Boa Vista', 'Recife', 'PE', 5, FALSE, TRUE),
+('9f42a30c-8782-4b4b-870f-70857794c881','55566677788', 'Travessa do Sol, 321', 'Aldeota', 'Fortaleza', 'CE', 2, FALSE, FALSE),
+('38ffc50e-5bc4-4e09-84e0-6077c0c1b0d0','99988877766', 'Rua Amazonas, 654', 'Adrianópolis', 'Manaus', 'AM', 6, TRUE, FALSE);
 
 -- Criar usuário adicional (se necessário)
 -- CREATE USER IF NOT EXISTS 'admin'@'%' IDENTIFIED BY 'admin_password';

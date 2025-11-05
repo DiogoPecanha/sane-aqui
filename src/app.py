@@ -7,7 +7,7 @@ from database import Database
 
 # Configuração da página
 st.set_page_config(
-    page_title="Pesquisa de Saneamento",
+    page_title="Sane Aqui - Pesquisa de Saneamento",
     page_icon="🏠",
     layout="wide"
 )
@@ -23,12 +23,12 @@ cpf_validator = CPF()
 st.sidebar.title("📋 Menu")
 page = st.sidebar.radio(
     "Navegação",
-    ["Formulário de Pesquisa", "Dashboard Estatístico"]
+    ["Formulário de Pesquisa", "Painel Estatístico"]
 )
 
 # ==================== PÁGINA 1: FORMULÁRIO ====================
 if page == "Formulário de Pesquisa":
-    st.title("🏠 Pesquisa de Saneamento Básico")
+    st.title("🏠 Sane Aqui - Pesquisa de Saneamento Básico")
     st.markdown("---")
     
     with st.form("formulario_pesquisa"):
@@ -87,7 +87,7 @@ if page == "Formulário de Pesquisa":
                     st.error(error)
             else:
                 # Salva no banco
-                data = {
+                data = {                    
                     'cpf': cpf_limpo,
                     'endereco': endereco,
                     'bairro': bairro,
@@ -105,8 +105,8 @@ if page == "Formulário de Pesquisa":
                     st.error("❌ Erro ao salvar. Tente novamente.")
 
 # ==================== PÁGINA 2: DASHBOARD ====================
-elif page == "Dashboard Estatístico":
-    st.title("📊 Dashboard de Estatísticas")
+elif page == "Painel Estatístico":
+    st.title("📊 Painel de Estatísticas")
     st.markdown("---")
     
     stats = db.get_statistics()

@@ -1,6 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
 import os
+import uuid
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -30,19 +31,22 @@ class Database:
             cursor = conn.cursor()
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS pesquisas (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    id CHAR(36) PRIMARY KEY,  -- UUID
                     cpf VARCHAR(14) NOT NULL,
                     endereco VARCHAR(255) NOT NULL,
                     bairro VARCHAR(100),
-                    cidade VARCHAR(100),
-                    estado CHAR(2),
-                    moradores INT,
-                    rede_esgoto BOOLEAN,
-                    agua_tratada BOOLEAN,
+                    cidade VARCHAR(100) NOT NULL,
+                    estado CHAR(2) NOT NULL,
+                    moradores INT NOT NULL CHECK (moradores >= 1 AND moradores <= 50),
+                    rede_esgoto BOOLEAN NOT NULL DEFAULT FALSE,
+                    agua_tratada BOOLEAN NOT NULL DEFAULT FALSE,
                     data_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    
+                    INDEX idx_cpf (cpf),
                     INDEX idx_cidade (cidade),
-                    INDEX idx_estado (estado)
-                )
+                    INDEX idx_estado (estado),
+                    INDEX idx_data_envio (data_envio)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
             """)
             conn.commit()
             cursor.close()
@@ -51,17 +55,18 @@ class Database:
     def insert_pesquisa(self, data):
         """Insere nova pesquisa"""
         conn = self.get_connection()
+        id = str(uuid.uuid4())
         if conn:
             cursor = conn.cursor()
             query = """
                 INSERT INTO pesquisas 
-                (cpf, endereco, bairro, cidade, estado, moradores, rede_esgoto, agua_tratada)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                (id, cpf, endereco, bairro, cidade, estado, moradores, rede_esgoto, agua_tratada)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
             cursor.execute(query, (
-                data['cpf'], data['endereco'], data['bairro'],
-                data['cidade'], data['estado'], data['moradores'],
-                data['rede_esgoto'], data['agua_tratada']
+                id, data['cpf'], data['endereco'], 
+                data['bairro'], data['cidade'], data['estado'], 
+                data['moradores'], data['rede_esgoto'], data['agua_tratada']
             ))
             conn.commit()
             cursor.close()
