@@ -28,7 +28,7 @@ page = st.sidebar.radio(
 
 # ==================== PÁGINA 1: FORMULÁRIO ====================
 if page == "Formulário de Pesquisa":
-    st.title("🏠 Sane Aqui - Pesquisa de Saneamento Básico")
+    st.title("🏠 Sane Aqui")
     st.markdown("---")
     
     with st.form("formulario_pesquisa"):
@@ -99,8 +99,7 @@ if page == "Formulário de Pesquisa":
                 }
                 
                 if db.insert_pesquisa(data):
-                    st.success("✅ Pesquisa enviada com sucesso!")
-                    st.balloons()
+                    st.toast("Pesquisa enviada com sucesso!", icon="✅")
                 else:
                     st.error("❌ Erro ao salvar. Tente novamente.")
 
